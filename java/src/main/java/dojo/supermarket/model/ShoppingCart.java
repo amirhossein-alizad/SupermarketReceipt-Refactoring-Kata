@@ -43,26 +43,29 @@ public class ShoppingCart {
                 Discount discount = null;
                 int bought_products = 1;
                 int bought_products_ratio = quantityAsInt / bought_products;
-                if (offer.offerType == SpecialOfferType.ThreeForTwo) {
-                    bought_products  = 3;
-                    if (quantityAsInt >= bought_products) {
-                        double discountAmount = quantity * unitPrice - ((bought_products_ratio  * 2 * unitPrice) + quantityAsInt % bought_products * unitPrice);
-                        discount = new Discount(p, bought_products + " for 2", -discountAmount);
-                    }
-                }
-                else if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
+                
+                if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
                     discount = new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
                 }
                 else {
-                    if (offer.offerType == SpecialOfferType.TwoForAmount) {
+                    double offer_amount = 0;
+                    double price_coefficient = 1;
+                    if (offer.offerType == SpecialOfferType.ThreeForTwo){
+                        bought_products  = 3;
+                        offer_amount = 2;
+                        price_coefficient = unitPrice;
+                    }
+                    else if (offer.offerType == SpecialOfferType.TwoForAmount) {
                         bought_products = 2;
+                        offer_amount = offer.argument;
                     }
                     else if (offer.offerType == SpecialOfferType.FiveForAmount) {
                         bought_products  = 5;
+                        offer_amount = offer.argument;
                     }
                     if (quantityAsInt >= bought_products) {
-                        double discountTotal = unitPrice * quantity - (offer.argument * bought_products_ratio + quantityAsInt % bought_products * unitPrice);
-                        discount = new Discount(p, bought_products  + " for " + offer.argument, -discountTotal);
+                        double discountTotal = unitPrice * quantity - (offer_amount * bought_products_ratio * price_coefficient + quantityAsInt % bought_products * unitPrice);
+                        discount = new Discount(p, bought_products  + " for " + offer_amount, -discountTotal);
                     }
                 }
 
