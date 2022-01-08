@@ -48,25 +48,25 @@ public class ShoppingCart {
 
                 } else if (offer.offerType == SpecialOfferType.TwoForAmount) {
                     bought_products  = 2;
-                    if (quantityAsInt >= 2) {
-                        double total = offer.argument * (quantityAsInt / bought_products ) + quantityAsInt % 2 * unitPrice;
+                    if (quantityAsInt >= bought_products) {
+                        double total = offer.argument * (quantityAsInt / bought_products ) + quantityAsInt % bought_products * unitPrice;
                         double discountN = unitPrice * quantity - total;
-                        discount = new Discount(p, "2 for " + offer.argument, -discountN);
+                        discount = new Discount(p, bought_products + " for " + offer.argument, -discountN);
                     }
 
                 } if (offer.offerType == SpecialOfferType.FiveForAmount) {
                     bought_products  = 5;
                 }
 
-                if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2) {
-                    double discountAmount = quantity * unitPrice - ((bought_products_ratio  * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
-                    discount = new Discount(p, "3 for 2", -discountAmount);
+                if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt >= bought_products) {
+                    double discountAmount = quantity * unitPrice - ((bought_products_ratio  * 2 * unitPrice) + quantityAsInt % bought_products * unitPrice);
+                    discount = new Discount(p, bought_products + " for 2", -discountAmount);
                 }
                 if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
                     discount = new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
                 }
-                if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
-                    double discountTotal = unitPrice * quantity - (offer.argument * bought_products_ratio + quantityAsInt % 5 * unitPrice);
+                if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= bought_products) {
+                    double discountTotal = unitPrice * quantity - (offer.argument * bought_products_ratio + quantityAsInt % bought_products * unitPrice);
                     discount = new Discount(p, bought_products  + " for " + offer.argument, -discountTotal);
                 }
                 if (discount != null)
