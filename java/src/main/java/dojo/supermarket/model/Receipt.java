@@ -18,7 +18,7 @@ public class Receipt {
         return total;
     }
 
-    public void addProduct(Product p, double quantity, double price, double totalPrice) {
+    public void addReceiptItem(Product p, double quantity, double price, double totalPrice) {
         this.items.add(new ReceiptItem(p, quantity, price, totalPrice));
     }
 
