@@ -16,9 +16,9 @@ public class SupermarketTest {
     public void tenPercentDiscount() {
         SupermarketCatalog catalog = new SupermarketCatalog();
         Product toothbrush = new Product("toothbrush", ProductUnit.Each);
-        catalog.addProduct(toothbrush, 0.99);
+        catalog.addProductPrice(toothbrush, 0.99);
         Product apples = new Product("apples", ProductUnit.Kilo);
-        catalog.addProduct(apples, 1.99);
+        catalog.addProductPrice(apples, 1.99);
 
         Teller teller = new Teller(catalog);
         teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);

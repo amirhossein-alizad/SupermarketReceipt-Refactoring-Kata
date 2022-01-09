@@ -38,7 +38,7 @@ public class ShoppingCart {
             double quantity = productQuantities.get(p);
             if (offers.containsKey(p)) {
                 Offer offer = offers.get(p);
-                double unitPrice = catalog.getUnitPrice(p);
+                double unitPrice = catalog.getProductPrice(p);
                 Discount discount = offer.handel_offer_discount(p, quantity, unitPrice);
                 if (discount != null)
                     receipt.addDiscount(discount);

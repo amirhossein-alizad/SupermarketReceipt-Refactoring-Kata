@@ -6,11 +6,11 @@ import java.util.Map;
 public class  SupermarketCatalog {
     private Map<String, Double> prices = new HashMap<>();
 
-    public void addProduct(Product product, double price) {
+    public void addProductPrice(Product product, double price) {
         this.prices.put(product.getName(), price);
     }
 
-    public double getUnitPrice(Product p) {
+    public double getProductPrice(Product p) {
         return this.prices.get(p.getName());
     }
 }
